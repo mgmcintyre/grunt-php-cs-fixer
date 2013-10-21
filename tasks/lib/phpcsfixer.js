@@ -95,7 +95,14 @@ exports.init = function(grunt) {
             maxBuffer: config.maxBuffer
         };
 
+        var timeA = +(new Date());
+        var memA  = process.memoryUsage().heapUsed;
+        grunt.log.writeln();
         exec(cmd, cmdOptions, function(err, stdout, stderr) {
+
+            var timeB = +(new Date());
+            var memB  = process.memoryUsage().heapUsed;
+            grunt.log.writeln('Time: ' + ((timeB - timeA) / (1000)).toFixed(2) + 's, Memory: ' + ((memB - memA) / (1024 * 1024)).toFixed(2) + 'Mb');
 
             if (stdout && config.verbose) {
                 grunt.log.write(stdout);
@@ -107,6 +114,7 @@ exports.init = function(grunt) {
                 }
             }
 
+            
             grunt.log.ok("OK");
             done();
         });
