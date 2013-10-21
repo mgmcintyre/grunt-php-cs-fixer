@@ -31,7 +31,7 @@ phpcsfixer: {
 		level: 'all',
 		quiet: true
 	}
-},
+}
 ```
 
 __This task is a [multi task][] so any targets, files and options should be specified accordingly.__
@@ -50,8 +50,8 @@ _The file or directory to fix._
 #### bin
 Type: `String`  Default: `'php-cs-fixer'`
 
-_The path to `php-cs-fixer`._
-_Note is installed using composer, this will need to be `vendor/bin/php-cs-fixer`._
+_The path to `php-cs-fixer`._  
+_(For composer, use `vendor/bin/php-cs-fixer`)._
 
 #### ignoreExitCode
 Type: `Boolean` Default: `false`
@@ -79,7 +79,7 @@ Type: `String` Default: `all`
 _Chooses preset list of fixers, options are `psr0`, `psr1`, `psr2`, `all`._
 
 #### fixers
-Type: `String` Default: `null`
+Type: `String|Array` Default: `null`
 
-_Limit the fixers used._
+_Comma-separated string, or array of fixers to use._  
 _@see [https://github.com/fabpot/PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer)._
