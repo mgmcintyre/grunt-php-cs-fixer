@@ -11,14 +11,15 @@
     "type": "git",
     "url": "git://github.com/openxo/grunt-php-cs-fixer.git"
   },
-  "version": "0.0.1",
-  "main": "Gruntfile.js",
+  "version": "0.0.2",
   "engines": {
     "node": "0.10.x"
   },
   "keywords": [
     "gruntplugin",
-    "phpunit"
+    "php",
+    "phpcs",
+    "codingstandards"
   ],
   "dependencies": {
     "underscore": "~1.5.2"
