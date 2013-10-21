@@ -1,0 +1,26 @@
+  {
+  "name": "grunt-php-cs-fixer",
+  "description": "Grunt plugin for running PHP Coding Standards Fixer",
+  "homepage": "https://github.com/openxo/grunt-php-cs-fixer",
+  "author": {
+    "name": "Mark McIntyre",
+    "email": "mark.mcintyre@openxo.com",
+    "url": "http://www.openxo.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/openxo/grunt-php-cs-fixer.git"
+  },
+  "version": "0.0.1",
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "gruntplugin",
+    "phpunit"
+  ],
+  "dependencies": {
+    "underscore": "~1.5.2"
+  }
+}
