@@ -71,7 +71,7 @@ _Show a diff for the proposed changes._
 #### dryRun
 Type: `Boolean` Default: `false`
 
-_Don't affect the proposed changes (useful when combined with `--verbose` and `--diff`)._
+_Don't effect the proposed changes (useful when combined with `--verbose` and `--diff`)._
 
 #### level
 Type: `String` Default: `all`
