@@ -66,6 +66,9 @@ exports.init = function(grunt) {
             cmd += ' --verbose';
         }
 
+        if (grunt.option('framework') || config.framework) {
+            cmd += ' --config=' + config.framework;
+        }
         return cmd;
     };
 
