@@ -19,7 +19,7 @@ exports.init = function(grunt) {
         defaults = {
             // Default options
             bin: 'php-cs-fixer',
-            level: 'all',
+            level: null,
             fixers: null,
             dryRun: false,
             diff: false,
