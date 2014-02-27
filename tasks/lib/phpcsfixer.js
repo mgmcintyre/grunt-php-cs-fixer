@@ -52,7 +52,6 @@ exports.init = function(grunt) {
             if (_.isString(config.fixers)) {
                 fixers = config.fixers.split(",");
             }
-            console.log(fixers.join(' '));
             cmd += ' --fixers=' + fixers.join(",");
         }
 
