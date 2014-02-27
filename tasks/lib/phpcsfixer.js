@@ -105,7 +105,7 @@ exports.init = function(grunt) {
             var memB  = process.memoryUsage().heapUsed;
             grunt.log.writeln('Time: ' + ((timeB - timeA) / (1000)).toFixed(2) + 's, Memory: ' + ((memB - memA) / (1024 * 1024)).toFixed(2) + 'Mb');
 
-            if (stdout && config.verbose) {
+            if (stdout && (grunt.option('verbose') || config.verbose)) {
                 grunt.log.write(stdout);
             }
 
