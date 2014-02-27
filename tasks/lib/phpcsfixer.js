@@ -40,6 +40,8 @@ exports.init = function(grunt) {
     var buildCommand = function(dir) {
 
         var cmd = path.normalize(config.bin);
+        
+        cmd += ' fix ' + dir;
 
         if (grunt.option('level') || config.level) {
             cmd += ' --level=' + config.level;
@@ -78,7 +80,7 @@ exports.init = function(grunt) {
 
         var dir = path.normalize(runner.data.dir);
         config  = runner.options(defaults);
-        cmd     = buildCommand(dir) + ' fix ' + dir;
+        cmd     = buildCommand(dir);
 
         grunt.log.writeln('Running php-cs-fixer (target: ' + runner.target.cyan + ') in ' + dir.cyan);
         grunt.verbose.writeln('Exec: ' + cmd);
