@@ -109,10 +109,8 @@ exports.init = function(grunt) {
                 grunt.log.write(stdout);
             }
 
-            if (err) {
-                if (! config.ignoreExitCode) {
-                    grunt.fatal(err);
-                }
+            if (stderr && (!config.ignoreExitCode || (grunt.option('verbose') || config.verbose))) {
+                    grunt.fatal(stderr);
             }
 
             
