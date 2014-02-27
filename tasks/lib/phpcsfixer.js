@@ -41,6 +41,10 @@ exports.init = function(grunt) {
 
         var cmd = path.normalize(config.bin);
         
+        if (grunt.option('verbose') || config.verbose) {
+            cmd += ' --verbose';
+        }
+        
         cmd += ' fix ' + dir;
 
         if (grunt.option('level') || config.level) {
@@ -61,10 +65,6 @@ exports.init = function(grunt) {
 
         if (grunt.option('diff') || config.diff) {
             cmd += ' --diff';
-        }
-
-        if (grunt.option('verbose') || config.verbose) {
-            cmd += ' --verbose';
         }
 
         return cmd;
