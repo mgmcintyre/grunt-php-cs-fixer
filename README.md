@@ -81,5 +81,10 @@ _Chooses preset list of fixers, options are `psr0`, `psr1`, `psr2`, `all`._
 #### fixers
 Type: `String|Array` Default: `null`
 
+#### framework
+Type: `String` Default: `default`
+
+_Chooses option customizes the files to analyse, based on some well-known frameworks directory structures, options are `magento`, `sf20`, `sf21`._
+
 _Comma-separated string, or array of fixers to use._  
 _@see [https://github.com/fabpot/PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer)._

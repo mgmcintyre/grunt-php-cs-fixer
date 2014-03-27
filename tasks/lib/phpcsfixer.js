@@ -40,7 +40,7 @@ exports.init = function(grunt) {
     var buildCommand = function(dir) {
 
         var cmd = path.normalize(config.bin);
-        
+
         if (grunt.option('verbose') || config.verbose) {
             cmd += ' --verbose';
         }
@@ -67,6 +67,9 @@ exports.init = function(grunt) {
             cmd += ' --diff';
         }
 
+        if (grunt.option('framework') || config.framework) {
+            cmd += ' --config=' + config.framework;
+        }
         return cmd;
     };
 
