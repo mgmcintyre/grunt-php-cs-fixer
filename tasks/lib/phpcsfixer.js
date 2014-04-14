@@ -19,7 +19,7 @@ exports.init = function(grunt) {
         defaults = {
             // Default options
             bin: 'php-cs-fixer',
-            level: 'all',
+            level: null,
             fixers: null,
             dryRun: false,
             diff: false,
@@ -41,6 +41,12 @@ exports.init = function(grunt) {
 
         var cmd = path.normalize(config.bin);
 
+        if (grunt.option('verbose') || config.verbose) {
+            cmd += ' --verbose';
+        }
+        
+        cmd += ' fix ' + dir;
+
         if (grunt.option('level') || config.level) {
             cmd += ' --level=' + config.level;
         }
@@ -50,7 +56,6 @@ exports.init = function(grunt) {
             if (_.isString(config.fixers)) {
                 fixers = config.fixers.split(",");
             }
-            console.log(fixers.join(' '));
             cmd += ' --fixers=' + fixers.join(",");
         }
 
@@ -62,10 +67,9 @@ exports.init = function(grunt) {
             cmd += ' --diff';
         }
 
-        if (grunt.option('verbose') || config.verbose) {
-            cmd += ' --verbose';
+        if (grunt.option('framework') || config.framework) {
+            cmd += ' --config=' + config.framework;
         }
-
         return cmd;
     };
 
@@ -78,7 +82,7 @@ exports.init = function(grunt) {
 
         var dir = path.normalize(runner.data.dir);
         config  = runner.options(defaults);
-        cmd     = buildCommand(dir) + ' fix ' + dir;
+        cmd     = buildCommand(dir);
 
         grunt.log.writeln('Running php-cs-fixer (target: ' + runner.target.cyan + ') in ' + dir.cyan);
         grunt.verbose.writeln('Exec: ' + cmd);
@@ -104,18 +108,16 @@ exports.init = function(grunt) {
             var memB  = process.memoryUsage().heapUsed;
             grunt.log.writeln('Time: ' + ((timeB - timeA) / (1000)).toFixed(2) + 's, Memory: ' + ((memB - memA) / (1024 * 1024)).toFixed(2) + 'Mb');
 
-            if (stdout && config.verbose) {
+            if (stdout && (grunt.option('verbose') || config.verbose)) {
                 grunt.log.write(stdout);
             }
 
-            if (err) {
-                if (! config.ignoreExitCode) {
-                    grunt.fatal(err);
-                }
+            if (stderr && (!config.ignoreExitCode || (grunt.option('verbose') || config.verbose))) {
+                    grunt.fatal(stderr);
             }
 
             
-            grunt.log.ok("OK");
+            grunt.log.ok("PHP files fixed!");
             done();
         });
     };

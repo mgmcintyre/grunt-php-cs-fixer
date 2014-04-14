@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git://github.com/mgmcintyre/grunt-php-cs-fixer.git"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "node": "0.10.x"
   },
