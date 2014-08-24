@@ -113,11 +113,19 @@ exports.init = function(grunt) {
             }
 
             if (stderr && (!config.ignoreExitCode || (grunt.option('verbose') || config.verbose))) {
-                    grunt.fatal(stderr);
+                grunt.fatal(stderr);
             }
 
-            
-            grunt.log.ok("PHP files fixed!");
+            if (err && config.dryRun) {
+                grunt.fatal(err);
+            }
+
+            if (config.dryRun) {
+                grunt.log.ok("PHP files valid!");
+            } else {
+                grunt.log.ok("PHP files fixed!");
+            }
+
             done();
         });
     };
