@@ -126,8 +126,6 @@ exports.init = function(grunt) {
                 grunt.log.ok("PHP files fixed!");
             }
 
-            
-            grunt.log.ok("PHP files fixed!");
             done();
         });
     };
