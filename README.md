@@ -23,7 +23,7 @@ _To be included in your Grunt `initConfig`._
 ```js
 phpcsfixer: {
 	app: {
-		dir: 'app'
+		dir: 'app' // or ['src/models', 'src/lib']
 	},
 	options: {
 		bin: 'vendor/bin/php-cs-fixer',
@@ -36,14 +36,14 @@ phpcsfixer: {
 
 __This task is a [multi task][] so any targets, files and options should be specified accordingly.__
 
-[multi task]: https://github.com/gruntjs/grunt/wiki/Configuring-tasks
+[multi task]: http://gruntjs.com/creating-tasks#multi-tasks
 
 ## Target Properties
 
 #### dir
-Type: `String`
+Type: `String` || `Array`
 
-_The file or directory to fix._
+_The file(s) or directory(s) to fix._
 
 ###Options
 
