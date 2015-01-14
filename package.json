@@ -1,4 +1,4 @@
-  {
+{
   "name": "grunt-php-cs-fixer",
   "description": "Grunt plugin for running PHP Coding Standards Fixer",
   "homepage": "https://github.com/mgmcintyre/grunt-php-cs-fixer",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git://github.com/mgmcintyre/grunt-php-cs-fixer.git"
   },
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "node": "0.10.x"
   },
@@ -22,6 +22,7 @@
     "codingstandards"
   ],
   "dependencies": {
+    "async": "^0.9.0",
     "underscore": "~1.5.2"
   },
   "devDependencies": {

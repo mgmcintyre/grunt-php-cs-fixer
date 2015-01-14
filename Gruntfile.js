@@ -9,18 +9,18 @@ module.exports = function(grunt) {
   grunt.initConfig({
     phpcsfixer: {
       app: {
-        dir: 'php'
+        dir: ["php/src/Grunt/PhpCodingStandardsFixer/Sample.php", "php/src/Grunt/PhpCodingStandardsFixer/Sample"]
       },
       options: {
-        bin: 'vendor/bin/php-cs-fixer',
-        ignoreExitCode: true,
-        level: 'all',
+        bin: "vendor/bin/php-cs-fixer",
+        ignoreExitCode: false,
+        level: "all",
         quiet: true
       }
     }
   });
 
-  grunt.loadTasks('tasks');
-  grunt.registerTask('default', ['phpcsfixer']);
+  grunt.loadTasks("tasks");
+  grunt.registerTask("default", ["phpcsfixer"]);
 
 };
