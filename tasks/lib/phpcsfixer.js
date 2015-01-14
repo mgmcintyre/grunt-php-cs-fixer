@@ -36,9 +36,14 @@ exports.init = function(grunt) {
      *
      * @return string
      */
-    var buildCommands = function(dirs) {
+    var buildCommands = function(paths) {
 
         var appends = [];
+
+        if (grunt.option("verbose") || config.verbose) {
+            appends.push("--verbose");
+        }
+
         if (grunt.option("level") || config.level) {
             appends.push("--level=" + config.level);
         }
@@ -60,17 +65,11 @@ exports.init = function(grunt) {
             appends.push("--config=" + config.framework);
         }
 
-        var cmds = _.map(dirs, function(dir) {
+        var bin = path.normalize(config.bin),
+            append = appends.join(" ");
 
-            var cmd = path.normalize(config.bin);
-            if (grunt.option("verbose") || config.verbose) {
-              cmd += " --verbose";
-            }
-
-            cmd += " fix " + dir + " " + appends.join(" ");
-
-            return cmd;
-
+        var cmds = _.map(paths, function(thePath) {
+            return bin + " fix " + thePath + " " + append;
         });
 
         return cmds;
@@ -83,19 +82,20 @@ exports.init = function(grunt) {
      */
     exports.setup = function(runner) {
 
-        var dirs = _.isString(runner.data.dir) ? [runner.data.dir] : runner.data.dir;
+        var paths = _.isString(runner.data.dir) ? [runner.data.dir] : runner.data.dir;
 
-        dirs = _.map(dirs, function(dir) {
-          return path.normalize(dir);
+        var pathList = _.map(paths, function(thePath) {
+          return path.normalize(thePath);
         });
 
         config = runner.options(defaults);
-        cmds = buildCommands(dirs);
+        cmds = buildCommands(pathList);
 
         var logLine = "Running php-cs-fixer (target: " + runner.target.cyan + ") in "
-            + "[" + dirs.join(", ").cyan + "]";
+            + "[" + pathList.join(", ").cyan + "]";
 
         grunt.log.writeln(logLine);
+
         _.each(cmds, function(cmd, i) {
             grunt.verbose.writeln("Exec [" + i + "]: " + cmd);
         });
