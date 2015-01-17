@@ -146,11 +146,17 @@ exports.init = function(grunt) {
         async.parallel(runList, function(err, result) {
 
             if (err) {
-                return grunt.fatal(err);
+                grunt.fatal(err);
+                done();
+
+                return;
             }
 
             var msg = config.dryRun ? "PHP files valid!" : "PHP files fixed!";
             grunt.log.ok(msg);
+            done();
+
+            return;
 
         });
 
