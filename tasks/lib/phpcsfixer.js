@@ -25,6 +25,7 @@ exports.init = function(grunt) {
             verbose: false,
             quiet: false,
             ignoreExitCode: false,
+            configfile: false,
             maxBuffer: 200*1024
         },
         cmds = null,
@@ -63,6 +64,10 @@ exports.init = function(grunt) {
 
         if (grunt.option("framework") || config.framework) {
             appends.push("--config=" + config.framework);
+        }
+        
+        if (grunt.option("configfile") || config.configfile) {
+            appends.push("--config-file=" + config.configfile);
         }
 
         var bin = path.normalize(config.bin),
