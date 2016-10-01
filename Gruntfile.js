@@ -13,9 +13,8 @@ module.exports = function(grunt) {
       },
       options: {
         bin: "vendor/bin/php-cs-fixer",
-        ignoreExitCode: false,
         level: "all",
-        quiet: true
+        verbose: true
       }
     }
   });
