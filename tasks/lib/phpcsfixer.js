@@ -71,11 +71,18 @@ exports.init = function(grunt) {
         }
 
         var bin = path.normalize(config.bin),
-            append = appends.join(" ");
+            append = appends.join(" "),
+            cmds = [];
 
-        var cmds = _.map(paths, function(thePath) {
-            return bin + " fix " + thePath + " " + append;
-        });
+        if (paths.length) {
+            cmds = _.map(paths, function(thePath) {
+                return bin + " fix " + thePath + " " + append;
+            });
+        }
+
+        if (grunt.option("configfile") || config.configfile) {
+            cmds.push(bin + " fix " + append);
+        }
 
         return cmds;
     };
@@ -124,31 +131,32 @@ exports.init = function(grunt) {
         var runList = _.map(cmds, function(cmd, i) {
             return function(callback) {
                 exec(cmd, cmdOptions, function(err, stdout, stderr) {
+                    if (grunt.option("verbose") || config.verbose) {
+                        var timeB = +(new Date());
+                        var memB = process.memoryUsage().heapUsed;
+                        grunt.log.writeln("Time [" + i + "]: " + ((timeB - timeA) / (1000)).toFixed(2) + "s, Memory: " + ((memB - memA) / (1024 * 1024)).toFixed(2) + "Mb");
 
-                    var timeB = +(new Date());
-                    var memB = process.memoryUsage().heapUsed;
-                    grunt.log.writeln("Time [" + i + "]: " + ((timeB - timeA) / (1000)).toFixed(2) + "s, Memory: " + ((memB - memA) / (1024 * 1024)).toFixed(2) + "Mb");
+                        if (stderr && !config.ignoreExitCode) {
+                            grunt.log.write(stderr);
+                        }
 
-                    if (stdout && (grunt.option("verbose") || config.verbose)) {
-                        grunt.log.write(stdout);
+                        if (stdout) {
+                            grunt.log.write(stdout);
+                        }
                     }
 
-                    if (stderr && (!config.ignoreExitCode || (grunt.option("verbose") || config.verbose))) {
-                        callback(stderr, null);
-                        return;
+                    if (err && config.dryRun && !config.ignoreExitCode) {
+                        callback(err);
+
+                        return
                     }
 
-                    if (err && config.dryRun) {
-                        callback(err, null);
-                        return;
-                    }
-
-                    callback(null, true);
+                    callback();
                 });
             };
         });
 
-        async.parallel(runList, function(err, result) {
+        async.parallel(runList, function(err) {
 
             if (err) {
                 grunt.fatal(err);
@@ -157,11 +165,13 @@ exports.init = function(grunt) {
                 return;
             }
 
-            var msg = config.dryRun ? "PHP files valid!" : "PHP files fixed!";
+            var msg = "PHP files fixed!";
+            if (config.dryRun) {
+                msg = config.ignoreExitCode ? "PHP files checked!" : "PHP files valid!";
+            }
+
             grunt.log.ok(msg);
             done();
-
-            return;
 
         });
 
