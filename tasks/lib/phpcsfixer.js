@@ -58,10 +58,10 @@ exports.init = function(grunt) {
             appends.push("--diff");
         }
 
-        if (grunt.option("allowRisky") || config.diff) {
+        if (grunt.option("allowRisky") || config.allowRisky) {
             appends.push("--allow-risky yes");
         }
-        
+
         if (grunt.option("configfile") || config.configfile) {
             appends.push("--config=" + config.configfile);
         }
@@ -134,7 +134,12 @@ exports.init = function(grunt) {
                         return;
                     }
 
-                    if (err && config.dryRun) {
+                    if (err && err.code != 0 && !config.ignoreExitCode) {
+                        callback(err, null);
+                        return;
+                    }
+
+                    if (err && err.code == 0 && config.dryRun) {
                         callback(err, null);
                         return;
                     }
