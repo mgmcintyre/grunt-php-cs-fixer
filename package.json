@@ -4,14 +4,13 @@
   "homepage": "https://github.com/mgmcintyre/grunt-php-cs-fixer",
   "author": {
     "name": "Mark McIntyre",
-    "email": "mark@mgmcintyre.co.uk",
-    "url": "http://www.mgmcintyre.co.uk"
+    "email": "m@mgm.io"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/mgmcintyre/grunt-php-cs-fixer.git"
   },
-  "version": "0.0.9",
+  "version": "0.0.10",
   "engines": {
     "node": "0.10.x"
   },
