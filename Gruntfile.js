@@ -13,8 +13,8 @@ module.exports = function(grunt) {
       },
       options: {
         bin: "vendor/bin/php-cs-fixer",
-        level: "all",
-        verbose: true
+        usingCache: "no",
+        quiet: true
       }
     }
   });

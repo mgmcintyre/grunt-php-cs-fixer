@@ -18,14 +18,14 @@ exports.init = function(grunt) {
         defaults = {
             // Default options
             bin: "php-cs-fixer",
+            usingCache: false,
             rules: null,
             dryRun: false,
             diff: false,
             allowRisky: false,
             verbose: false,
             quiet: false,
-            ignoreExitCode: false,
-            configfile: false,
+            configfile: null,
             maxBuffer: 200*1024
         },
         cmds = null,
@@ -40,6 +40,10 @@ exports.init = function(grunt) {
     var buildCommands = function(paths) {
 
         var appends = [];
+
+        if (grunt.option("quiet") || config.quiet) {
+            appends.push("--quiet");
+        }
 
         if (grunt.option("verbose") || config.verbose) {
             appends.push("--verbose");
@@ -60,6 +64,10 @@ exports.init = function(grunt) {
 
         if (grunt.option("allowRisky") || config.allowRisky) {
             appends.push("--allow-risky yes");
+        }
+
+        if (grunt.option("usingCache") || config.usingCache) {
+            appends.push("--using-cache " + config.usingCache);
         }
 
         if (grunt.option("configfile") || config.configfile) {
@@ -131,22 +139,24 @@ exports.init = function(grunt) {
                         var timeB = +(new Date());
                         var memB = process.memoryUsage().heapUsed;
                         grunt.log.writeln("Time [" + i + "]: " + ((timeB - timeA) / (1000)).toFixed(2) + "s, Memory: " + ((memB - memA) / (1024 * 1024)).toFixed(2) + "Mb");
-
-                        if (stderr && !config.ignoreExitCode) {
-                            grunt.log.write(stderr);
-                        }
-
-                        if (stdout) {
-                            grunt.log.write(stdout);
-                        }
                     }
 
-                    if (err && err.code != 0 && !config.ignoreExitCode) {
-                        callback(err);
-                        return;
+                    if (stderr) {
+                        grunt.log.write(stderr);
                     }
 
-                    if (err && err.code == 0 && config.dryRun) {
+                    if (stdout) {
+                        grunt.log.write(stdout);
+                    }
+
+                    // Error codes 16 and up represent issues with php-cs-fixer
+                    if (err && err.code >= 16) {
+                      callback(err)
+                      return;
+                    }
+
+                    // Dry run should fail for all error codes
+                    if (config.dryRun && err && err.code != 0) {
                         callback(err);
                         return;
                     }
@@ -165,10 +175,7 @@ exports.init = function(grunt) {
                 return;
             }
 
-            var msg = "PHP files fixed!";
-            if (config.dryRun) {
-                msg = config.ignoreExitCode ? "PHP files checked!" : "PHP files valid!";
-            }
+            var msg = config.dryRun ? "PHP files valid!" : "PHP files fixed!";
 
             grunt.log.ok(msg);
             done();

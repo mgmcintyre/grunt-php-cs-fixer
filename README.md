@@ -9,7 +9,7 @@
 npm install grunt-php-cs-fixer --save-dev
 ```
 
-2. [Install PHP Coding Standards Fixer](https://github.com/fabpot/PHP-CS-Fixer)
+2. [Install PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
 3. Include the task in your Gruntfile with a line like this
 ```
@@ -27,8 +27,7 @@ phpcsfixer: {
 	},
 	options: {
 		bin: 'vendor/bin/php-cs-fixer',
-		ignoreExitCode: true,
-		level: 'all',
+		usingCache: "no",
 		quiet: true
 	}
 }
@@ -45,7 +44,7 @@ Type: `String` || `Array`
 
 _The file(s) or directory(s) to fix._
 
-###Options
+### Options
 
 #### bin
 Type: `String`  Default: `'php-cs-fixer'`
@@ -53,15 +52,20 @@ Type: `String`  Default: `'php-cs-fixer'`
 _The path to `php-cs-fixer`._  
 _(For composer, use `vendor/bin/php-cs-fixer`)._
 
-#### ignoreExitCode
-Type: `Boolean` Default: `false`
+#### configfile
+Type: `String` Default: `null`
 
-_Don't fail even if we get a non-zero return._
+_Path to php-cs-fixer config file._  
 
 #### verbose
 Type: `Boolean` Default: `false`
 
 _Output full info including warnings and a list of changes._
+
+#### quiet
+Type: `Boolean` Default: `false`
+
+_Output minimal info._
 
 #### diff
 Type: `Boolean` Default: `false`
@@ -71,20 +75,20 @@ _Show a diff for the proposed changes._
 #### dryRun
 Type: `Boolean` Default: `false`
 
-_Don't effect the proposed changes (useful when combined with `--verbose` and `--diff`)._
+_Don't effect the proposed changes (useful when combined with `--diff`)._
 
-#### level
-Type: `String` Default: `all`
+#### allowRisky
+Type: `Boolean` Default: `false`
 
-_Chooses preset list of fixers, options are `psr0`, `psr1`, `psr2`, `all`._
+_Allows you to set whether risky rules may run._
 
-#### fixers
-Type: `String|Array` Default: `null`
+#### usingCache
+Type: `Boolean` Default: `no`
 
-#### framework
-Type: `String` Default: `default`
+_Controls whether a local cache is used, accepted values are "yes" or "no"._
 
-_Chooses option customizes the files to analyse, based on some well-known frameworks directory structures, options are `magento`, `sf20`, `sf21`._
+#### rules
+Type: `String` Default: `(all PSR rules)`
 
-_Comma-separated string, or array of fixers to use._  
-_@see [https://github.com/fabpot/PHP-CS-Fixer](https://github.com/fabpot/PHP-CS-Fixer)._
+_Comma-separated string, or array of rules to use._  
+_@see [https://github.com/FriendsOfPHP/PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)._
