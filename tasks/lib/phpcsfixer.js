@@ -19,6 +19,7 @@ exports.init = function(grunt) {
             // Default options
             bin: "php-cs-fixer",
             usingCache: false,
+            cacheFile: false,
             rules: null,
             dryRun: false,
             diff: false,
@@ -68,6 +69,10 @@ exports.init = function(grunt) {
 
         if (grunt.option("usingCache") || config.usingCache) {
             appends.push("--using-cache " + config.usingCache);
+        }
+
+        if (grunt.option("cacheFile") || config.cacheFile) {
+            appends.push("--cache-file " + config.cacheFile);
         }
 
         if (grunt.option("configfile") || config.configfile) {

@@ -87,6 +87,11 @@ Type: `Boolean` Default: `no`
 
 _Controls whether a local cache is used, accepted values are "yes" or "no"._
 
+#### cacheFile
+Type: `String` Default: `null`
+
+_Specifies the cache file name and location._
+
 #### rules
 Type: `String` Default: `(all PSR rules)`
 
