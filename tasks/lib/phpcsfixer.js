@@ -22,6 +22,7 @@ exports.init = function(grunt) {
             rules: null,
             dryRun: false,
             diff: false,
+            diffFormat: null,
             allowRisky: false,
             verbose: false,
             quiet: false,
@@ -60,6 +61,10 @@ exports.init = function(grunt) {
 
         if (grunt.option("diff") || config.diff) {
             appends.push("--diff");
+        }
+        
+        if (grunt.option('diffFormat') || config.diffFormat) {
+            appends.push("--diff-format=" + config.diffFormat);
         }
 
         if (grunt.option("allowRisky") || config.allowRisky) {
